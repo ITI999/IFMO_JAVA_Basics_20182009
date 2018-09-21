@@ -1,5 +1,6 @@
 package ru.ifmo.cet.javabasics;
 
+
 /**
  * Нужно реализовать констурктор и метод, возвращающий слова песни про бутылки на стене.
  * <p>
@@ -32,12 +33,44 @@ package ru.ifmo.cet.javabasics;
  */
 public class BottleSong {
 
+    private final int bottleTakenAtOnce;
+
     public BottleSong(int bottleTakenAtOnce) {
-        //TODO
+        this.bottleTakenAtOnce = bottleTakenAtOnce;
     }
 
     public String getBottleSongLyrics() {
-        //TODO
-        throw new UnsupportedOperationException();
+        if(this.bottleTakenAtOnce <1 || this.bottleTakenAtOnce > 99) throw new IllegalArgumentException();
+
+        String text = "";
+        for(int i = 99; i > 0; i -= bottleTakenAtOnce){
+            text += i + ((i == 1) ? " bottle" : " bottles") + " of beer on the wall, " + i + ((i  == 1) ? " bottle" : " bottles") + " of beer.\n" +
+                    "Take " + ((i > bottleTakenAtOnce)? NumberToWordsConverter.convert(bottleTakenAtOnce) : NumberToWordsConverter.convert(i) )
+                    + " down and pass around, " + ((i - bottleTakenAtOnce > 0) ? (i - bottleTakenAtOnce) : "no more")
+                    + ((i - bottleTakenAtOnce == 1) ? " bottle" : " bottles") + " of beer on the wall.\n";
+        }
+
+        text += "No more bottles of beer on the wall, no more bottles of beer.\n" +
+                "Go to the store and buy some more, 99 bottles of beer on the wall.\n";
+
+        return text;
+
     }
+}
+
+class NumberToWordsConverter {
+
+    final private  static String[] units = {"zero","one","two","three","four",
+            "five","six","seven","eight","nine","ten",
+            "eleven","twelve","thirteen","fourteen","fifteen",
+            "sixteen","seventeen","eighteen","nineteen"};
+    final private static String[] tens = {"","","twenty","thirty","forty","fifty",
+            "sixty","seventy","eighty","ninety"};
+
+    public static String convert(Integer i) {
+        //
+        if( i < 20)  return units[i];
+        return tens[i/10] + ((i % 10 > 0)? " " + convert(i % 10):"");
+        }
+
 }
