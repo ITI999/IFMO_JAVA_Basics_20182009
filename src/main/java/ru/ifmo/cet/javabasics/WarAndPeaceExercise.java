@@ -5,7 +5,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Pattern;
 
 import static java.nio.file.Files.readAllLines;
 
